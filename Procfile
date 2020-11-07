@@ -1,1 +1,1 @@
-web: gunicorn tenant_manager.wsgi --log-file -
+web: gunicorn tenant_manager.wsgi
