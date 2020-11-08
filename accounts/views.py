@@ -108,9 +108,9 @@ def create_pass_change_token(request):
             passwordtoken=Action_slugs(user=user,forget=True)
             passwordtoken.save()
 
-            domain="127.0.0.1:8000"
+            domain="tenant-manager-arsenel.herokuapp.com"
             link="/account/user/action/"+str(passwordtoken.slug)
-            activate_url="http://"+domain+link
+            activate_url="https://"+domain+link
             subject="Password Change link - tenant"
             message="Hi "+str(user.username)+"\n"+str(activate_url)+"\nIgnore(if not used Tenant arsenal(G)"
             to_list=[user.email]

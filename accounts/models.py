@@ -51,9 +51,9 @@ def create_auth_token(sender,instance=None,created=False,**kwargs): #TOKEN activ
         activation_slug=Action_slugs(user=instance)
         activation_slug.save()
 
-        domain="127.0.0.1:8000"
+        domain="tenant-manager-arsenel.herokuapp.com"
         link="/account/user/action/"+str(activation_slug.slug)
-        activate_url="http://"+domain+link
+        activate_url="https://"+domain+link
         subject="Email verification tenant"
         message="Hi "+str(instance.username)+"\n"+str(activate_url)+"\nIgnore(if not used Tenant arsenal(G)"
         to_list=[instance.email]
