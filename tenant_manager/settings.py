@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '$^a+*b@tc_lme@v+bt@0!%qymx&(i1+3m!srrxurql2-hc5d(_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -131,7 +131,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+EMAIL_USE_TLS=True
+EMAIL_HOST="smtp.gmail.com"
+EMAIL_HOST_USER="gauravshinde696969@gmail.com"
+EMAIL_HOST_PASSWORD="Goku11prime"
+EMAIL_PORT=587
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 

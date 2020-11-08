@@ -49,8 +49,13 @@ class RegisterationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({'password':'passwords must match'})
 
         account.set_password(password)
+        account.is_active=False
         account.save()
         #creates owner model
         owner_instance=Owner(user=account,owner=owner)
         owner_instance.save()
         return account
+
+
+class EmailSerializer(serializers.Serializer):
+    email=serializers.EmailField()

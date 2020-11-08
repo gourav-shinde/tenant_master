@@ -1,4 +1,4 @@
-from .serializers import UserSerializer,RegisterationSerializer
+from .serializers import UserSerializer,RegisterationSerializer,EmailSerializer
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -6,10 +6,25 @@ from rest_framework import status
 from rest_framework.permissions import IsAdminUser
 from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
-
+#models
 from django.contrib.auth.models import User
+from .models import Action_slugs
+
+#forms
+from .forms import Register_Form
 
 from django.shortcuts import render
+from django.core.mail import EmailMessage
+import threading
+
+class EmailThread(threading.Thread):
+
+	def __init__(self,email):
+		self.email=email
+		threading.Thread.__init__(self)
+
+	def run(self):
+		self.email.send(fail_silently=True)
 
 class UserRecordView(APIView):
     """
@@ -54,6 +69,62 @@ def registeration_view(request):
         token=Token.objects.get(user=account).key
         data['token']=token
 
+    else:
+        data=serializer.errors
+    return Response(data)
+
+
+def user_action(request,id):
+    action=Action_slugs.objects.get(slug=id)
+    user=User.objects.get(id=action.user.id)
+    if action.forget==False:
+        user.is_active=True
+        user.save()
+        action.delete()
+        return render(request,"activation.html",{})
+    else:
+        
+        form=Register_Form(request.POST or None)
+        if form.is_valid():
+            password=form.save(commit=False)
+            user.set_password(request.POST.get('password1'))
+            user.save()
+            action.delete()
+            return render(request,"success.html",{"Title":"Password Changed"})
+        return render(request,"change_password.html",{"form":form,"email":user.email,"username":user.username})
+    try:
+        pass
+    except:
+        return render(request,"success.html",{"Title":"Something went Wrong"})
+
+@api_view(['POST',])
+def create_pass_change_token(request):
+    serializer=EmailSerializer(data=request.data)
+    data={}
+    if serializer.is_valid():
+        email=serializer.data['email']
+        try:
+            user=User.objects.get(email=email)
+            passwordtoken=Action_slugs(user=user,forget=True)
+            passwordtoken.save()
+
+            domain="127.0.0.1:8000"
+            link="/account/user/action/"+str(passwordtoken.slug)
+            activate_url="http://"+domain+link
+            subject="Password Change link - tenant"
+            message="Hi "+str(user.username)+"\n"+str(activate_url)+"\nIgnore(if not used Tenant arsenal(G)"
+            to_list=[user.email]
+            email = EmailMessage(
+                                subject,
+                                message,
+                                'gauravshinde696969@gmail.com',
+                                to_list
+                                )
+            # EmailThread(email).start()
+            data["status"]="Success!!Email Sent"
+
+        except user.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
     else:
         data=serializer.errors
     return Response(data)
