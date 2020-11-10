@@ -71,7 +71,7 @@ def registeration_view(request):
         return Response(data)
     else:
         data=serializer.errors
-        Response(data,status=400)
+        return Response(data,status=400)
 
 
 def user_action(request,id):
