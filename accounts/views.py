@@ -68,10 +68,10 @@ def registeration_view(request):
         data['username']=account.username
         token=Token.objects.get(user=account).key
         data['token']=token
-
+        return Response(data)
     else:
         data=serializer.errors
-    return Response(data)
+        Response(data,status=400)
 
 
 def user_action(request,id):
