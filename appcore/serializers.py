@@ -22,4 +22,4 @@ class BillSerializer(serializers.ModelSerializer):
 class BillInSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bill
-        fields = (,'rent','units','price_per_unit','water_bill','wifi_charge','total')
+        fields = ('rent','units','price_per_unit','water_bill','wifi_charge','total')
