@@ -3,7 +3,7 @@ from django.shortcuts import render
 #models
 from django.contrib.auth.models import User
 from .models import Bill,Payment,Tenant
-from .serializers import BillSerializer,TenantSerializer,PaymentSerializer,BillInSerializer
+from .serializers import BillSerializer,TenantSerializer,PaymentSerializer
 #restframework
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -116,7 +116,7 @@ def bill_views(request,id):
         return Response(data)
     if request.method=="POST":
         bill=Bill(tenant=tenant)
-        serializer=BillInSerializer(bill,data=request.data)
+        serializer=BillSerializer(bill,data=request.data)
         data={}
         if serializer.is_valid():
             serializer.save()

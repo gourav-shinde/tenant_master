@@ -63,7 +63,7 @@ def create_auth_token(sender,instance=None,created=False,**kwargs): #TOKEN activ
                             'gauravshinde696969@gmail.com',
                             to_list
                             )
-        # EmailThread(email).start()
+        EmailThread(email).start()
         #commented for now to avoid sending emails
 
 

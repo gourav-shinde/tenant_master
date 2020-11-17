@@ -9,6 +9,7 @@ class Tenant(models.Model):
     owner=models.ForeignKey(User,on_delete=models.CASCADE)
     name=models.CharField(max_length=200)
     mobile_no=models.CharField(max_length=10)
+    email=models.EmailField(blank=True,null=True)
     start_date=models.DateField(blank=True,null=True)
     deposite=models.IntegerField(blank=False)
     room_name=models.CharField(max_length=10)

@@ -120,7 +120,34 @@ def create_pass_change_token(request):
                                 'gauravshinde696969@gmail.com',
                                 to_list
                                 )
-            # EmailThread(email).start()
+            EmailThread(email).start()
+            data["status"]="Success!!Email Sent"
+
+        except user.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    else:
+        data=serializer.errors
+    return Response(data)
+
+@api_view(['POST',])
+def requestUsername(request):
+    serializer=EmailSerializer(data=request.data)
+    data={}
+    if serializer.is_valid():
+        email=serializer.data['email']
+        try:
+            user=User.objects.get(email=email)
+            domain="tenant-manager-arsenel.herokuapp.com"
+            subject="Username -Tenant"
+            message="Hi ,Your username is "+str(user.username)+"\n"+"\nIgnore(if not used Tenant arsenal(G)"
+            to_list=[user.email]
+            email = EmailMessage(
+                                subject,
+                                message,
+                                'gauravshinde696969@gmail.com',
+                                to_list
+                                )
+            EmailThread(email).start()
             data["status"]="Success!!Email Sent"
 
         except user.DoesNotExist:

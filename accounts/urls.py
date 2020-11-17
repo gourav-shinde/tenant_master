@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path,include
-from .views import UserRecordView,registeration_view,user_action,create_pass_change_token
+from .views import UserRecordView,registeration_view,user_action,create_pass_change_token,requestUsername
 from rest_framework.authtoken.views import obtain_auth_token
 
 app_name="accounts"
@@ -12,7 +12,9 @@ urlpatterns = [
     #password change request using API
     path('user/request',create_pass_change_token,name="create_password_request"),
     #user active after email verification and password change
-    path('user/action/<slug:id>',user_action,name="action")
+    path('user/action/<slug:id>',user_action,name="action"),
+    path("user/request/username",requestUsername,name="request_username"),
+    
     
 ]
 

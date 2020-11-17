@@ -7,7 +7,7 @@ from rest_framework.validators import UniqueTogetherValidator
 class TenantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tenant
-        fields = ('id','name','mobile_no','start_date','deposite','room_name','balance')
+        fields = ('id','name','mobile_no','email','start_date','deposite','room_name','balance','active')
 
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,9 +17,4 @@ class PaymentSerializer(serializers.ModelSerializer):
 class BillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bill
-        fields = ('id','date','rent','electric_total','water_bill','wifi_charge','total')
-
-class BillInSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Bill
-        fields = ('rent','units','price_per_unit','water_bill','wifi_charge','total')
+        fields = ('id','date','rent','units','price_per_unit','electric_total','water_bill','wifi_charge','total')
