@@ -22,7 +22,7 @@ class EmailThread(threading.Thread):
 		threading.Thread.__init__(self)
 
 	def run(self):
-		self.email.send(fail_silently=True)
+		self.email.send(fail_silently=False)
 
 # Create your models here.
 class Action_slugs(models.Model):
