@@ -27,6 +27,9 @@ class Payment(models.Model):
     def __str__(self):
         return str(self.date)
 
+    class Meta:
+        ordering = ['-id']
+
 @receiver(post_save, sender=Payment)
 def balance_payment(sender, instance, *args, **kwargs):
     tenant_instance=Tenant.objects.get(id=instance.tenant.id)
@@ -50,6 +53,8 @@ class Bill(models.Model):
     water_bill=models.IntegerField(default=0)
     wifi_charge=models.IntegerField(default=0)
     total=models.IntegerField(default=0)
+    class Meta:
+        ordering = ['-id']
 
 
 @receiver(pre_save, sender=Bill)
