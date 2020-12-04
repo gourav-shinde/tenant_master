@@ -1,44 +1,264 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Tenant Manager</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.ico' %}" rel="icon">
+  <link href="{% static 'assets/img/favicon.ico' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/venobox/venobox.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
 </head>
+
 <body>
-    <div class="jumbotron">
-        <h2>Manager Landing</h2>
-        <h5>admin : <a href="/admin">Link</a></h5>
-        <hr>
-        <h3>API LINKS</h3>
-        <h5>Account</h5>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top  header-transparent ">
+    <div class="container d-flex align-items-center">
+
+      <div class="logo mr-auto">
+        <h1 class="text-light"><a href=""><img src="{% static 'assets/img/heroimg.png' %}" width="32" height="45" class="d-inline-block align-top" alt="" loading="lazy">
+          Tenant Manager</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav class="nav-menu d-none d-lg-block">
         <ul>
-            
-            <li>[POST](username,email,password,password2,owner)tenant-manager-arsenel.heroku.com/account/user/register to register user(also returns token)</li>
-            <li>[GET] tenant-manager-arsenel.heroku.com/account/user with token as header(admin only)(list of all users)</li>
-            <li>[POST](username,password)tenant-manager-arsenel.heroku.com/account/user/login (we get token)</li>
-            <li>[POST](username,password)tenant-manager-arsenel.heroku.com/api-token-auth/ (we get token)</li>
-            <li>[POST](email)tenant-manager-arsenel.heroku.com/account/user/request (we get email to change passowrd)</li>
-            <li>(Email links)(webpages) (email)tenant-manager-arsenel.heroku.com/account/user/action/slug (top activate account and change password)</li>
+          <li class="active"><a href="">Home</a></li>
+          <li><a href="#features">App Features</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="">Check tenant status</a></li>
+
+          <li class="get-started"><a href="{% url 'appcore:api' %}">API</a></li>
         </ul>
-        <hr>
-        <h5>Appcore</h5>
-        <ul>
-            <li>(TenantView)[GET]tenant-manager-arsenel.heroku.com/app/tenant_views with user token as header</li>
-            <li>(TenantView)[POST](name,mobile_no,'email',deposite,room_name,start_date(YYYY-MM-DD))tenant-manager-arsenel.heroku.com/app/tenant_views with user token as header</li>
-            <ul>
-                <li>(Returns bills of Tenant)[GET]tenant-manager-arsenel.heroku.com/app/bill_views/id with user token as header</li>
-                <li>[POST](rent,unit,price_per,unit,water_bill,wifi_charge)tenant-manager-arsenel.heroku.com/app/bill_views/id (tenant id)with user token as header</li>
-                <li>(Returns payments of Tenant)tenant-manager-arsenel.heroku.com/app/payment_views/id with user token as header</li>
-                <li>[POST](amount)[GET]tenant-manager-arsenel.heroku.com/app/payment_views/id (tenant_id)with user token as header</li>
-            </ul>
-            <li>(TenantView)[PUT](name,mobile_no,deposite,room_no) tenant-manager-arsenel.heroku.com/app/tenant_views/id with user token as header</li>
-            <li>(TenantView)[DELETE] tenant-manager-arsenel.heroku.com/app/tenant_views/id with user token as header</li>
-        </ul>
-        <ul>
-            <li>(bill delete)[DELETE] tenant-manager-arsenel.heroku.com/app/bill_delete/id (bill id)</li>
-            <li>(payment delete)[DELETE] tenant-manager-arsenel.heroku.com/app/payment_delete/id (payment id)</li>
-        </ul>
+      </nav><!-- .nav-menu -->
+
     </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1" data-aos="fade-up">
+          <div>
+            <h1>Tenant Manager</h1>
+            <h2>Always have records of your tenants on the tip of your fingers.</h2>
+            <a href="#" class="download-btn"><i class="bx bxl-play-store"></i> Google Play</a>
+            <a href="#" class="download-btn"><i class="bx bxl-apple"></i> App Store</a>
+          </div>
+        </div>
+        <div class="col-lg-6 d-lg-flex flex-lg-column align-items-stretch order-1 order-lg-2 hero-img" data-aos="fade-up">
+          <img src="{% static 'assets/img/hero-img.png' %}" class="img-fluid" alt="">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= App Features Section ======= -->
+    <section id="features" class="features">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>App Features</h2>
+          <p>Maintain the record of your Tenants,their bills and payments with is application.</p>
+        </div>
+
+        <div class="row no-gutters">
+          <div class="col-xl-7 d-flex align-items-stretch order-2 order-lg-1">
+            <div class="content d-flex flex-column justify-content-center">
+              <div class="row">
+                <div class="col-md-6 icon-box" data-aos="fade-up">
+                  <i class="bx bx-receipt"></i>
+                  <h4>Bill Generation </h4>
+                  <p>You can generate bill for any of your tenant easily.</p>
+                </div>
+                <div class="col-md-6 icon-box" data-aos="fade-up">
+                  <i class="bx bx-receipt"></i>
+                  <h4>Payment Generation </h4>
+                  <p>Keep records of your Tanant's Payment</p>
+                </div>
+                <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
+                  <i class="bx bx-shield"></i>
+                  <h4>Account Recovery</h4>
+                  <p>Your can recover your username or password easily in just one click.</p>
+                </div>
+                <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
+                  <i class="bx bx-shield"></i>
+                  <h4>Secure Account Creation</h4>
+                  <p>Create your account securely with email verification.</p>
+                </div>
+                <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="400">
+                  <i class="bx bx-atom"></i>
+                  <h4>Edit Details</h4>
+                  <p>You can edit your Tanant's details if needed.</p>
+                </div>
+                <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="500">
+                  <i class="bx bx-id-card"></i>
+                  <h4>Details about your Tanant</h4>
+                  <p>See Your tenants Details at a click.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="image col-xl-5 d-flex justify-content-center order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100" style="height:fit-content">
+            <img src="{% static 'assets/img/heroimg.png' %}" class="img-fluid" alt="">
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End App Features Section -->
+
+
+
+    <!-- ======= Gallery Section ======= -->
+    <section id="gallery" class="gallery">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Gallery</h2>
+          <p>If you are curious to know what the application do or what it looks like just have a look downwards and you will know how it is.</p>
+        </div>
+
+        <div class="owl-carousel gallery-carousel" data-aos="fade-up">
+          <a href="{% static 'assets/img/gallery/gallery-1.png' %}" class="venobox" data-gall="gallery-carousel"><img src="{% static 'assets/img/gallery/gallery-1.png' %}" alt=""></a>
+          <a href="{% static 'assets/img/gallery/gallery-2.png' %}" class="venobox" data-gall="gallery-carousel"><img src="{% static 'assets/img/gallery/gallery-2.png' %}" alt=""></a>
+          <a href="{% static 'assets/img/gallery/gallery-3.png' %}" class="venobox" data-gall="gallery-carousel"><img src="{% static 'assets/img/gallery/gallery-3.png' %}" alt=""></a>
+          <a href="{% static 'assets/img/gallery/gallery-4.png' %}" class="venobox" data-gall="gallery-carousel"><img src="{% static 'assets/img/gallery/gallery-4.png' %}" alt=""></a>
+          <a href="{% static 'assets/img/gallery/gallery-5.png' %}" class="venobox" data-gall="gallery-carousel"><img src="{% static 'assets/img/gallery/gallery-5.png' %}" alt=""></a>
+          <a href="{% static 'assets/img/gallery/gallery-6.png' %}" class="venobox" data-gall="gallery-carousel"><img src="{% static 'assets/img/gallery/gallery-6.png' %}" alt=""></a>
+          <a href="{% static 'assets/img/gallery/gallery-7.png' %}" class="venobox" data-gall="gallery-carousel"><img src="{% static 'assets/img/gallery/gallery-7.png' %}" alt=""></a>
+          <a href="{% static 'assets/img/gallery/gallery-8.png' %}" class="venobox" data-gall="gallery-carousel"><img src="{% static 'assets/img/gallery/gallery-8.png' %}" alt=""></a>
+          <a href="{% static 'assets/img/gallery/gallery-9.png' %}" class="venobox" data-gall="gallery-carousel"><img src="{% static 'assets/img/gallery/gallery-9.png' %}" alt=""></a>
+          
+        </div>
+
+      </div>
+    </section><!-- End Gallery Section -->
+
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <!-- <div class="footer-newsletter" data-aos="fade-up">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <h4>Join Our Newsletter</h4>
+            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit" value="Subscribe">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact" data-aos="fade-up">
+            <h3>Tenant Manager</h3>
+            <p>
+              Pune <br>
+              Maharashtra<br>
+              India<br><br>
+              <strong>Backend/Frontend Developer:</strong> Gaurav Shinde<br>
+              <strong>Frontend Developer:</strong> Shreyash pawar<br>
+            </p>
+          </div>
+
+          <!-- <div class="col-lg-3 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="100">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+            </ul>
+          </div> -->
+
+          <div class="col-lg-3 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="200">
+            <h4>Our Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">App Development</a></li>
+             </ul>
+          </div>
+
+          <!-- <div class="col-lg-3 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="300">
+            <h4>Our Social Networks</h4>
+            <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
+            <div class="social-links mt-3">
+              <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            </div>
+          </div> -->
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container py-4">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Tenant Manager(Arsenel)/bootstrapmade</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-bootstrap-app-landing-page-template/ -->
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/venobox/venobox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
 </body>
+
 </html>

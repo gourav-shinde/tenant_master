@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.urls import path,include
 
-from appcore.views import (landing,tenant_views,bill_views,payment_views,edit_delete_tenant,delete_bill,delete_payment)
+from appcore.views import (landing,tenant_views,bill_views,payment_views,edit_delete_tenant,delete_bill,delete_payment,api_view_html)
 
 app_name="appcore"
 urlpatterns = [
     path('',landing,name="landing"),
+    path('api',api_view_html,name="api"),
 
     #API LINKS
 

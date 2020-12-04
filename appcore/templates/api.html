@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="jumbotron">
+        <h2>Manager Landing</h2>
+        <h5>admin : <a href="/admin">Link</a></h5>
+        <hr>
+        <h3>API LINKS</h3>
+        <h5>Account</h5>
+        <ul>
+            
+            <li>[POST](username,email,password,password2,owner)tenant-manager-arsenel.heroku.com/account/user/register to register user(also returns token)</li>
+            <li>[GET] tenant-manager-arsenel.heroku.com/account/user with token as header(admin only)(list of all users)</li>
+            <li>[POST](username,password)tenant-manager-arsenel.heroku.com/account/user/login (we get token)</li>
+            <li>[POST](username,password)tenant-manager-arsenel.heroku.com/api-token-auth/ (we get token)</li>
+            <li>[POST](email)tenant-manager-arsenel.heroku.com/account/user/request (we get email to change passowrd)</li>
+            <li>(Email links)(webpages) (email)tenant-manager-arsenel.heroku.com/account/user/action/slug (top activate account and change password)</li>
+        </ul>
+        <hr>
+        <h5>Appcore</h5>
+        <ul>
+            <li>(TenantView)[GET]tenant-manager-arsenel.heroku.com/app/tenant_views with user token as header</li>
+            <li>(TenantView)[POST](name,mobile_no,'email',deposite,room_name,start_date(YYYY-MM-DD))tenant-manager-arsenel.heroku.com/app/tenant_views with user token as header</li>
+            <ul>
+                <li>(Returns bills of Tenant)[GET]tenant-manager-arsenel.heroku.com/app/bill_views/id with user token as header</li>
+                <li>[POST](rent,unit,price_per,unit,water_bill,wifi_charge)tenant-manager-arsenel.heroku.com/app/bill_views/id (tenant id)with user token as header</li>
+                <li>(Returns payments of Tenant)tenant-manager-arsenel.heroku.com/app/payment_views/id with user token as header</li>
+                <li>[POST](amount)[GET]tenant-manager-arsenel.heroku.com/app/payment_views/id (tenant_id)with user token as header</li>
+            </ul>
+            <li>(TenantView)[PUT](name,mobile_no,deposite,room_no) tenant-manager-arsenel.heroku.com/app/tenant_views/id with user token as header</li>
+            <li>(TenantView)[DELETE] tenant-manager-arsenel.heroku.com/app/tenant_views/id with user token as header</li>
+        </ul>
+        <ul>
+            <li>(bill delete)[DELETE] tenant-manager-arsenel.heroku.com/app/bill_delete/id (bill id)</li>
+            <li>(payment delete)[DELETE] tenant-manager-arsenel.heroku.com/app/payment_delete/id (payment id)</li>
+        </ul>
+    </div>
+</body>
+</html>

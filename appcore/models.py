@@ -45,6 +45,8 @@ def balance_payment_delete(sender, instance, *args, **kwargs):
 
 class Bill(models.Model):
     date=models.DateField(auto_now_add=True)
+    start_date=models.DateField(blank=True,null=True)
+    end_date=models.DateField(blank=True,null=True)
     tenant=models.ForeignKey(Tenant,on_delete=models.CASCADE)
     rent=models.IntegerField(default=0)
     units=models.IntegerField(default=0,blank=False,null=False)

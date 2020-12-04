@@ -35,7 +35,6 @@ def create_slug(sender, instance, *args, **kwargs):
     res = ''.join(random.choices(string.ascii_uppercase +
                              string.digits, k = 20))
     instance.slug=slugify(res)
-    
 
 class Owner(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)

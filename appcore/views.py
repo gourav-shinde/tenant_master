@@ -28,6 +28,9 @@ class EmailThread(threading.Thread):
 def landing(request):
     return render(request,"landing.html",{})
 
+def api_view_html(request):
+    return render(request,"api.html",{})
+
 #TENANTS
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
