@@ -17,4 +17,4 @@ class PaymentSerializer(serializers.ModelSerializer):
 class BillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bill
-        fields = ('id','date','rent','units','price_per_unit','electric_total','water_bill','wifi_charge','total')
+        fields = ('id','date','start_date','end_date','rent','units','price_per_unit','electric_total','water_bill','wifi_charge','total')
