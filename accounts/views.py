@@ -105,8 +105,11 @@ def create_pass_change_token(request):
         email=serializer.data['email']
         try:
             user=User.objects.get(email=email)
-            passwordtoken=Action_slugs(user=user,forget=True)
-            passwordtoken.save()
+            try:
+                passwordtoken=Action_slugs.objects.get(user=user,forget=True)
+            except:               
+                passwordtoken=Action_slugs(user=user,forget=True)
+                passwordtoken.save()
 
             domain="tenant-manager-arsenel.herokuapp.com"
             link="/account/user/action/"+str(passwordtoken.slug)
