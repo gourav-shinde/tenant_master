@@ -1,44 +1,275 @@
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+
+    {% load static %}
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    
+        <title>API
+        </title>
+        <meta content="" name="descriptison">
+        <meta content="" name="keywords">
+    
+        <!-- Favicons -->
+        <link href="{% static 'assets/img/favicon.ico' %}" rel="icon">
+        <link href="{% static 'assets/img/favicon.ico' %}" rel="apple-touch-icon">
+    
+        <!-- Google Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+            rel="stylesheet">
+    
+        <!-- Vendor CSS Files -->
+        <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'assets/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+        <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+        <link href="{% static 'assets/vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+        <link href="{% static 'assets/vendor/venobox/venobox.css' %}" rel="stylesheet">
+        <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+    
+        <!-- Template Main CSS File -->
+        <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    
+    </head>
+
 <body>
-    <div class="jumbotron">
-        <h2>Manager Landing</h2>
-        <h5>admin : <a href="/admin">Link</a></h5>
-        <hr>
-        <h3>API LINKS</h3>
-        <h5>Account</h5>
-        <ul>
-            
-            <li>[POST](username,email,password,password2,owner)tenant-manager-arsenel.heroku.com/account/user/register to register user(also returns token)</li>
-            <li>[GET] tenant-manager-arsenel.heroku.com/account/user with token as header(admin only)(list of all users)</li>
-            <li>[POST](username,password)tenant-manager-arsenel.heroku.com/account/user/login (we get token)</li>
-            <li>[POST](username,password)tenant-manager-arsenel.heroku.com/api-token-auth/ (we get token)</li>
-            <li>[POST](email)tenant-manager-arsenel.heroku.com/account/user/request (we get email to change passowrd)</li>
-            <li>(Email links)(webpages) (email)tenant-manager-arsenel.heroku.com/account/user/action/slug (top activate account and change password)</li>
-        </ul>
-        <hr>
-        <h5>Appcore</h5>
-        <ul>
-            <li>(TenantView)[GET]tenant-manager-arsenel.heroku.com/app/tenant_views with user token as header</li>
-            <li>(TenantView)[POST](name,mobile_no,'email',deposite,room_name,start_date(YYYY-MM-DD))tenant-manager-arsenel.heroku.com/app/tenant_views with user token as header</li>
-            <ul>
-                <li>(Returns bills of Tenant)[GET]tenant-manager-arsenel.heroku.com/app/bill_views/id with user token as header</li>
-                <li>[POST](rent,unit,price_per,unit,water_bill,wifi_charge)tenant-manager-arsenel.heroku.com/app/bill_views/id (tenant id)with user token as header</li>
-                <li>(Returns payments of Tenant)tenant-manager-arsenel.heroku.com/app/payment_views/id with user token as header</li>
-                <li>[POST](amount)[GET]tenant-manager-arsenel.heroku.com/app/payment_views/id (tenant_id)with user token as header</li>
-            </ul>
-            <li>(TenantView)[PUT](name,mobile_no,deposite,room_no) tenant-manager-arsenel.heroku.com/app/tenant_views/id with user token as header</li>
-            <li>(TenantView)[DELETE] tenant-manager-arsenel.heroku.com/app/tenant_views/id with user token as header</li>
-        </ul>
-        <ul>
-            <li>(bill delete)[DELETE] tenant-manager-arsenel.heroku.com/app/bill_delete/id (bill id)</li>
-            <li>(payment delete)[DELETE] tenant-manager-arsenel.heroku.com/app/payment_delete/id (payment id)</li>
-        </ul>
-    </div>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top  header-transparent ">
+        <div class="container d-flex align-items-center">
+
+            <div class="logo mr-auto">
+                <h1 class="text-light"><a href="index.html"><img src="assets/img/heroimg.png" width="35" height="40"
+                            class="d-inline-block align-top" alt="" loading="lazy">
+                        Tenant Manager</a></h1>
+            </div>
+            <nav class="nav-menu d-none d-lg-block">
+                <ul>
+                  <li class="get-started"><a href="/admin">Admin</a></li>
+                </ul>
+              </nav>
+
+        </div>
+    </header><!-- End Header -->
+
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex" >
+
+        <div class="container" >
+            <div class="row">
+                <div class="col-lg-6 d-lg-flex flex-lg-column hero-img order-1 order-lg-2 mb-4" data-aos="fade-up">
+                    <div style="overflow: scroll;height: 32rem;">
+                        <div><h4>Accounts</h4><br></div>
+                        <div style="margin-left:10px; text-align: left;"><button type="submit" class="btn btn-outline-primary" id='1' onclick="edited(this.id);">POST</button> Create Account</div><br>
+                        <div style="margin-left:10px;text-align: left;"><button type="submit" class="btn btn-outline-primary" id='2' onclick="edited(this.id);">POST</button> Login</div><br>
+                        <div style="margin-left:10px;text-align: left;"><button type="submit" class="btn btn-outline-primary" id='3' onclick="edited(this.id);">POST</button> Login</div><br>
+                        <div style="margin-left:10px;text-align: left;"><button type="submit" class="btn btn-outline-primary" id='4' onclick="edited(this.id);">POST</button> Reset password</div><br>
+                        <div style="margin-left:10px;text-align: left;"><button type="submit" class="btn btn-outline-primary" id='5' onclick="edited(this.id);">POST</button> Request username</div><br>                         
+                        <div style="margin-left:10px;text-align: left;"><button type="submit" class="btn btn-outline-primary" id='6' onclick="edited(this.id);">GET</button> List of all users(admin only)</div><br>
+                        <div><h4>App Core</h4><br></div>
+                        <div style="margin-left: 5px;">Tenants</div><br>
+                        <div style="margin-left:10px;text-align: left;"><button type="submit" class="btn btn-outline-primary" id='t1' onclick="edited(this.id);">GET</button> List tenants</div><br>
+                        <div style="margin-left:10px;text-align: left;"><button type="submit" class="btn btn-outline-primary" id='t2' onclick="edited(this.id);">PUT</button> Update Tenant</div><br>
+                        <div style="margin-left:10px;text-align: left;"><button type="submit" class="btn btn-outline-primary" id='t3' onclick="edited(this.id);">POST</button> Create Tenant</div><br>
+                        <div style="margin-left:10px;text-align: left;"><button type="submit" class="btn btn-outline-primary" id='t4' onclick="edited(this.id);">DELETE</button> Delete tenant</div><br>
+                        <div style="margin-left: 5px;">Bills</div><br>
+                        <div style="margin-left:10px;text-align: left;"><button type="submit" class="btn btn-outline-primary" id='b1' onclick="edited(this.id);">GET</button> List Bills</div><br>
+                        <div style="margin-left:10px;text-align: left;"><button type="submit" class="btn btn-outline-primary" id='b2' onclick="edited(this.id);">POST</button> Create Bill</div><br>
+                        <div style="margin-left:10px;text-align: left;"><button type="submit" class="btn btn-outline-primary" id='b3' onclick="edited(this.id);">DELETE</button> Delete Bill</div><br>
+                        <div style="margin-left: 5px;">Payments</div><br>
+                        <div style="margin-left:10px;text-align: left;"><button type="submit" class="btn btn-outline-primary" id='p1' onclick="edited(this.id);">GET</button> List payments</div><br>
+                        <div style="margin-left:10px;text-align: left;"><button type="submit" class="btn btn-outline-primary" id='p2' onclick="edited(this.id);">POST</button> Create payment</div><br>
+                        <div style="margin-left:10px;text-align: left;"><button type="submit" class="btn btn-outline-primary" id='p3' onclick="edited(this.id);">DELETE</button> Delete payment</div><br>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-lg-flex flex-lg-column order-1 order-lg-2 hero-img" data-aos="fade-up" style="height:fit-content; padding-left:50px">
+                    <!-- <textarea name="Body" id="" cols="30" rows="10">Body</textarea>
+                    <textarea name="Response" id="" cols="30" rows="10">Response</textarea> -->
+                    <div class="container row" ><strong>Link</strong><br>
+                        <div class="container">
+                            <p id="description">/account/user/register</p>
+                        </div>
+                    </div>
+                    <div class="container row" style="height:265px;padding: 0px;"><strong>Body</strong>
+                        <div class="container" style="border-radius: 20px;">
+                            <p id="body">{<br> username:'username',<br> email:'email',<br> password:'password',<br> password2:'password2',<br> owner:'boolean'<br>}</p>
+                        </div>
+                    </div>
+                    <div class="container row" style="height: 180px; padding: 0px;"><strong>Response</strong> 
+                    <div class="container" style=" border-radius: 20px;align-self: start;">
+                        <p id="response">{<br>username:'username',<br>email:'email',<br>token:'token'<br>}</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+
+
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-6 footer-contact" data-aos="fade-up">
+                        <h3>Tenant Manager</h3>
+                        <p>
+                            Pune <br>
+                            Maharashtra<br>
+                            India<br><br>
+                        </p>
+                    </div>
+
+
+                    <div class="col-lg-3 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="200">
+                        <h4>Our Services</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">App Development</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="300">
+                        <h4>Our Social Networks</h4>
+                        <p></p>
+                        <div class="social-links mt-3">
+                            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                            <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container py-4">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Tenant Manager</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+    <script src="{% static 'assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/venobox/venobox.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+
+    <!-- Template Main JS File -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+    <script>
+        var description=document.getElementById("description")
+        var body=document.getElementById("body")
+        var response=document.getElementById("response")
+
+        function edited(id){
+            switch(id){
+                case "1":
+                description.innerHTML="/account/user/register"
+                body.innerHTML="{<br> username:'username',<br> email:'email',<br> password:'password',<br> password2:'password2',<br> owner:'boolean'<br>}"
+                response.innerHTML="{<br>username:'username',<br>email:'email',<br>token:'token'<br>}"
+                break;
+                case "2":
+                description.innerHTML="/account/user/login"
+                body.innerHTML="{<br>username:'username',<br>password:'password'<br>}"
+                response.innerHTML="{<br>token:'token'<br>}"
+                break;
+                case "3":
+                description.innerHTML="/api-token-auth/"
+                body.innerHTML="{<br>username:'username',<br>password:'password'<br>}"
+                response.innerHTML="{<br>token:'token'<br>}"
+                break;
+                case "4":
+                description.innerHTML="/account/user/request"
+                body.innerHTML="{<br>email:'email'<br>}"
+                response.innerHTML="Depends upon entered email"
+                break;
+                case "5":
+                description.innerHTML="/account/user/username"
+                body.innerHTML="{<br>email:'email'<br>}"
+                response.innerHTML="Depends upon entered email"
+                break;
+                case "6":
+                description.innerHTML="/account/user"
+                body.innerHTML="Admin key as header"
+                response.innerHTML="{<br>List of all Users<br>}"
+                break;
+
+                case "t1":
+                description.innerHTML="/app/tenant_views"
+                body.innerHTML="User Key as header"
+                response.innerHTML="{<br>List of tenants<br>}"
+                break;
+                case "t2":
+                description.innerHTML="/app/tenant_views/tenant_id"
+                body.innerHTML="User key as header<br>{<br>name:'name',<br>mobile_no:'mobile_no',<br>room_no:'room_no',<br>email:'email'<br>}"
+                response.innerHTML=""
+                break;
+                case "t3":
+                description.innerHTML="/app/tenant_views"
+                body.innerHTML="User key as header<br>{<br>name:'name',<br>mobile_no:'mobile_no',<br>deposite:'deposite',<br>room_no:'room_no',<br>email:'email',<br>start_date:'YYYY-MM-DD'<br>}"
+                response.innerHTML=""
+                break;
+                case "t4":
+                description.innerHTML="/app/tenant_views/tenant-id"
+                body.innerHTML="User key as header"
+                response.innerHTML="Response depends upon data sent"
+                break;
+
+                case "b1":
+                description.innerHTML="/app/bill_views/tenant_id"
+                body.innerHTML="User key as header<br>"
+                response.innerHTML="{<br>List of Bills<br>}"
+                break;
+                case "b2":
+                description.innerHTML="/app/bill_views/tenant_id"
+                body.innerHTML="User key as header<br>{<br>rent:'rent',<br>price_per_unit:'price per unit',<br>units:'electrical units,<br>wifi_charge:'charges',<br>water_bill:'charges',<br>start_date:'YYYY-MM-DD',<br>end_date:'YYYY-MM-DD'<br>}"
+                response.innerHTML=""
+                break;
+                case "b3":
+                description.innerHTML="/app/bill_delete/bill_id"
+                body.innerHTML="User key as header<br>"
+                response.innerHTML="Response depends upon data sent"
+                break;
+
+                case "p1":
+                description.innerHTML="/app/payment_views/tenant_id"
+                body.innerHTML="User key as header<br>"
+                response.innerHTML="{<br>List of payments<br>}"
+                break;
+                case "p2":
+                description.innerHTML="/app/payment_views/tenant_id"
+                body.innerHTML="User key as header<br>{<br>amount:'amount'<br>}"
+                response.innerHTML=""
+                break;
+                case "p3":
+                description.innerHTML="/app/payment_delete/payment_id"
+                body.innerHTML="User key as header<br>"
+                response.innerHTML="Response depends upon data sent"
+                break;
+            }
+
+        }
+
+    </script>
+
 </body>
+
 </html>
