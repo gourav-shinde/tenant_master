@@ -1,14 +1,19 @@
 from django.contrib import admin
 from django.urls import path,include
 
-from appcore.views import (landing,tenant_views,bill_views,payment_views,edit_delete_tenant,delete_bill,delete_payment,api_view_html)
+from appcore.views import (landing,tenant_views,bill_views,payment_views,edit_delete_tenant,delete_bill,delete_payment,api_view_html,check_tenant_html,tenant_status,tenant_bill,tenant_payment)
 
 app_name="appcore"
 urlpatterns = [
     path('',landing,name="landing"),
     path('api',api_view_html,name="api"),
+    path('tenant',check_tenant_html,name="tenant_stat"),
 
     #API LINKS
+    # check tenant
+    path('status',tenant_status),     #API
+    path('bills/<int:id>',tenant_bill),  #API
+    path('payments/<int:id>',tenant_payment), #API
 
     #TENANT
     path('tenant_views',tenant_views,name="tenant_views"),#LIST VIEW AND CREATE #tenant id

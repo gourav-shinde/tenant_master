@@ -31,6 +31,9 @@ def landing(request):
 def api_view_html(request):
     return render(request,"api.html",{})
 
+def check_tenant_html(request):
+    return render(request,"check_tenant.html",{})
+
 #TENANTS
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
@@ -188,3 +191,42 @@ def delete_bill(request,id):
         else:
             data["failure"]="delete failed"
         return Response(data=data)
+
+
+
+
+# WEB VIEW TENANT
+
+
+@api_view(['POST']) #Tenant Check status
+def tenant_status(request,*args, **kwargs):
+    data={}
+    if len(request.POST["mobile_no"]) == 10:
+        try:
+            tenant=Tenant.objects.get(mobile_no=int(request.POST["mobile_no"]),email=request.POST['email'],start_date=request.POST["date"])
+            serializer=TenantSerializer(tenant)
+            data["tenant"]=serializer.data
+        except:
+            data["msg"]="No Such Tenant exists,check inputs"
+        
+    else:
+        data={"msg":"length of mobile number"}
+
+    return Response(data=data)
+
+
+@api_view(['GET']) #Tenant Check status
+def tenant_bill(request,id):
+    tenant=Tenant.objects.get(id=id)
+    bills=Bill.objects.filter(tenant=tenant)
+    serializer=BillSerializer(bills,many=True)
+    data={"bills":serializer.data}
+    return Response(data)
+
+@api_view(['GET']) #Tenant Check status
+def tenant_payment(request,id):
+    tenant=Tenant.objects.get(id=id)
+    payments=Payment.objects.filter(tenant=tenant)
+    serializer=PaymentSerializer(payments,many=True)
+    data={"payments":serializer.data}
+    return Response(data)
