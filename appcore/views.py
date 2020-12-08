@@ -112,6 +112,7 @@ def payment_views(request,id):
         if serializer.is_valid():
             obj=serializer.save()
             tenant=Tenant.objects.get(id=id)
+            statement=""
             if tenant.balance>=0:
                 statement="You have credit of Rupees "+str(tenant.balance)
             else:
@@ -166,6 +167,7 @@ def bill_views(request,id):
             obj=serializer.save()
             tenant=Tenant.objects.get(id=id)
             subject="Bill-"+str(obj.date)
+            statement=""
             if tenant.balance>=0:
                 statement="You have credit of Rupees "+str(tenant.balance)
             else:
