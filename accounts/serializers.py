@@ -27,7 +27,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class RegisterationSerializer(serializers.ModelSerializer):
     password2=serializers.CharField(style={'Input_type':'password'},write_only=True)
-    mobile_no=serializers.CharField()
+    mobile_no=serializers.CharField(required=False)
     owner=serializers.BooleanField()
 
     class Meta:
