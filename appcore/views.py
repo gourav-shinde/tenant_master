@@ -14,6 +14,10 @@ from rest_framework.decorators import api_view,permission_classes
 #email requirements
 import threading
 from django.core.mail import EmailMessage
+
+#export excel
+import xlwt
+from django.http import HttpResponse
 # Create your views here.
 
 class EmailThread(threading.Thread):
@@ -242,3 +246,37 @@ def tenant_payment(request,id):
     serializer=PaymentSerializer(payments,many=True)
     data={"payments":serializer.data}
     return Response(data)
+
+
+def tenant_exporter(request,id):
+    tenant=Tenant.objects.get(id=id)
+    bills=Bill.objects.filter(tenant=tenant)
+    bill_list=bills.values_list('date','start_date','end_date','rent','units','price_per_unit','electric_total','wifi_charge','water_bill','total')
+    payments=Payment.objects.filter(tenant=tenant)
+    response=HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition']='attachment;filename=Tenant_'+str(tenant.name)+'/xls'
+    wb=xlwt.Workbook(encoding='utf-8')
+    ws=wb.add_sheet('Bills')
+    row_num=3
+    font_style=xlwt.XFStyle()
+    font_style.font.bold=True
+    #tenant details
+    ws.write(0,0,"Name",font_style)
+    ws.write(0,1,str(tenant.name),font_style)
+    ws.write(1,0,"Mobile",font_style)
+    ws.write(1,1,str(tenant.mobile_no),font_style)
+
+    columns=['Date','From','To','Rent','units','Price per unit','electric total','wifi','water','total']
+
+    for col_no in range(len(columns)):
+        ws.write(row_num,col_no,columns[col_no],font_style)
+    
+    font_style=xlwt.XFStyle()
+    
+    # for row in bills:
+    #     row_num+=1
+    #     for col in range(9):
+    #         ws.write(row_num,col,str(bill_list[col]),font_style)
+    wb.save(response)
+
+    return response

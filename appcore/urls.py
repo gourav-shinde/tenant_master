@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path,include
 
-from appcore.views import (landing,tenant_views,bill_views,payment_views,edit_delete_tenant,delete_bill,delete_payment,api_view_html,check_tenant_html,tenant_status,tenant_bill,tenant_payment)
+from appcore.views import (landing,tenant_views,bill_views,payment_views,edit_delete_tenant,delete_bill,delete_payment,api_view_html,check_tenant_html,tenant_status,tenant_bill,tenant_payment,tenant_exporter)
 
 app_name="appcore"
 urlpatterns = [
@@ -14,6 +14,7 @@ urlpatterns = [
     path('status',tenant_status),     #API
     path('bills/<int:id>',tenant_bill),  #API
     path('payments/<int:id>',tenant_payment), #API
+    path('exporter/<int:id>',tenant_exporter),
 
     #TENANT
     path('tenant_views',tenant_views,name="tenant_views"),#LIST VIEW AND CREATE #tenant id
