@@ -66,7 +66,7 @@
                         <input class="form-control"type="email" name="email" id="email">
                         <label for="mobile_no"style="margin-left:5px;">Mobile: </label>
                         <input class="form-control"type="number" name="mobile_no" id="mobile_no" data-rule="min-len:10" data-msg="Enter valid 10 digit number">
-                        <label for="date" style="margin-left:5px; ">Date: </label>
+                        <label for="date" style="margin-left:5px; ">Check in Date: </label>
                         <input class="form-control"type="date" name="date" id="date" placeholder="yyyy-mm-dd"required>
                         <br>
                         <input type="submit" class="btn" id="clicko" style="margin-left:5px; margin-top:5px;" name="submit" value="Submit">
@@ -90,6 +90,7 @@
                     </p>
                     <button class="btn btn-outline-primary" id="B1">Bills</button>
                     <button class="btn btn-outline-primary" id="P1">Payments</button>
+                    <a href="" id="xl_impo"class="btn btn-outline-primary" id="P1">Get Excel</a>
                 
                 </div>
                 
@@ -212,6 +213,7 @@
             }
             document.getElementById("B1").addEventListener("click",bill_get)
             document.getElementById("P1").addEventListener("click",payment_get)
+            document.getElementById("xl_impo").setAttribute("href","exporter/"+obj["tenant"]["id"])
 
             // bills and payments
 

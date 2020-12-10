@@ -14,7 +14,7 @@ from rest_framework.decorators import api_view,permission_classes
 #email requirements
 import threading
 from django.core.mail import EmailMessage
-
+import datetime
 #export excel
 import xlwt
 from django.http import HttpResponse
@@ -251,13 +251,12 @@ def tenant_payment(request,id):
 def tenant_exporter(request,id):
     tenant=Tenant.objects.get(id=id)
     bills=Bill.objects.filter(tenant=tenant)
-    bill_list=bills.values_list('date','start_date','end_date','rent','units','price_per_unit','electric_total','wifi_charge','water_bill','total')
     payments=Payment.objects.filter(tenant=tenant)
     response=HttpResponse(content_type='application/ms-excel')
-    response['Content-Disposition']='attachment;filename=Tenant_'+str(tenant.name)+'/xls'
+    response['Content-Disposition']='attachment;filename=Tenant_'+str(tenant.name)+'.xls'
     wb=xlwt.Workbook(encoding='utf-8')
     ws=wb.add_sheet('Bills')
-    row_num=3
+    row_num=6
     font_style=xlwt.XFStyle()
     font_style.font.bold=True
     #tenant details
@@ -265,18 +264,47 @@ def tenant_exporter(request,id):
     ws.write(0,1,str(tenant.name),font_style)
     ws.write(1,0,"Mobile",font_style)
     ws.write(1,1,str(tenant.mobile_no),font_style)
+    ws.write(2,0,"date",font_style)
+    ws.write(2,1,str(datetime.datetime.today()),font_style)
+    ws.write(3,0,"date",font_style)
+    ws.write(3,1,str(tenant.balance),font_style)
 
     columns=['Date','From','To','Rent','units','Price per unit','electric total','wifi','water','total']
 
     for col_no in range(len(columns)):
         ws.write(row_num,col_no,columns[col_no],font_style)
     
-    font_style=xlwt.XFStyle()
+    font_style.font.bold=False
     
-    # for row in bills:
-    #     row_num+=1
-    #     for col in range(9):
-    #         ws.write(row_num,col,str(bill_list[col]),font_style)
+    for row in bills:
+        # print(row)
+        row_num+=1
+        ws.write(row_num,0,str(row.date),font_style)
+        ws.write(row_num,1,str(row.start_date),font_style)
+        ws.write(row_num,2,str(row.end_date),font_style)
+        ws.write(row_num,3,str(row.rent),font_style)
+        ws.write(row_num,4,str(row.units),font_style)
+        ws.write(row_num,5,str(row.price_per_unit),font_style)
+        ws.write(row_num,6,str(row.electric_total),font_style)
+        ws.write(row_num,7,str(row.wifi_charge),font_style)
+        ws.write(row_num,8,str(row.water_bill),font_style)
+        ws.write(row_num,9,str(row.total),font_style)
+
+    ws2=wb.add_sheet('Payments')
+    row_num=1
+    font_style.font.bold=True
+    columns=['Datetime','Amount']
+    for col_no in range(len(columns)):
+        ws2.write(row_num,col_no,columns[col_no],font_style) 
+    
+    font_style.font.bold=False
+
+    for row in payments:
+        row_num+=1
+        ws2.write(row_num,0,str(row.date),font_style)
+        ws2.write(row_num,1,str(row.amount),font_style)
+
+
     wb.save(response)
 
     return response
