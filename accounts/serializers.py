@@ -45,7 +45,12 @@ class RegisterationSerializer(serializers.ModelSerializer):
         password=self.validated_data['password']
         password2=self.validated_data['password2']
         owner=self.validated_data['owner']
-        mobile=self.validated_data['mobile_no']
+        mobile=""
+        try:
+            mobile=self.validated_data['mobile_no']
+        except:
+            mobile=""
+        
 
         if password!=password2:
             raise serializers.ValidationError({'password':'passwords must match'})
