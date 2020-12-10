@@ -59,7 +59,7 @@ def tenant_views(request):
                                 'gauravshinde696969@gmail.com',
                                 to_list
                                 )
-            EmailThread(email).start()
+            # EmailThread(email).start()
             return Response(serializer.data,status=status.HTTP_200_OK)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
@@ -126,7 +126,7 @@ def payment_views(request,id):
                                 'gauravshinde696969@gmail.com',
                                 to_list
                                 )
-            EmailThread(email).start()
+            # EmailThread(email).start()
             return Response(serializer.data,status=status.HTTP_200_OK)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
@@ -181,7 +181,7 @@ def bill_views(request,id):
                                 'gauravshinde696969@gmail.com',
                                 to_list
                                 )
-            EmailThread(email).start()
+            # EmailThread(email).start()
             return Response(serializer.data,status=status.HTTP_200_OK)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 

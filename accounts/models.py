@@ -38,7 +38,8 @@ def create_slug(sender, instance, *args, **kwargs):
 
 class Owner(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
-    owner=models.BooleanField(default=False)
+    mobile_no=models.CharField(max_length=10,blank=True)
+    owner=models.BooleanField(default=True)
 
 # Create your models here.
 @receiver(post_save,sender=User)
