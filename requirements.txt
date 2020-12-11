@@ -9,6 +9,7 @@ distlib==0.3.0
 distro==1.5.0
 dj-database-url==0.5.0
 Django==3.1.1
+django-cleanup==5.1.0
 django-filter==2.3.0
 django-heroku==0.3.1
 django-on-heroku==1.1.2
@@ -23,6 +24,7 @@ Markdown==3.2.2
 msgpack==0.6.2
 packaging==20.3
 pep517==0.8.2
+Pillow==8.0.1
 progress==1.5
 psycopg2==2.8.6
 psycopg2-binary==2.8.6

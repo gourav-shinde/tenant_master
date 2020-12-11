@@ -32,7 +32,7 @@ urlpatterns = [
     path('app/', include('appcore.urls'),name="appcore"),
 
     path('api-token-auth/', views.obtain_auth_token, name='api-token-auth'),
-    url(r'^media/(?P<path>.*)$', serve,{'document_root':       settings.MEDIA_ROOT}), 
+    url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
     url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 
 ]

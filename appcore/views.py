@@ -2,8 +2,8 @@ from django.shortcuts import render
 
 #models
 from django.contrib.auth.models import User
-from .models import Bill,Payment,Tenant
-from .serializers import BillSerializer,TenantSerializer,PaymentSerializer
+from .models import Bill,Payment,Tenant,PaymentRequest
+from .serializers import BillSerializer,TenantSerializer,PaymentSerializer,PayRequestSerializer
 #restframework
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -313,3 +313,81 @@ def tenant_exporter(request,id):
     wb.save(response)
 
     return response
+
+
+
+    #take payment request
+def paymentRequestCreate(request,id):
+    if request.POST:
+        tenant=Tenant.objects.get(id=id)
+        print(request.POST)
+        print(request.FILES)
+        request_pay=PaymentRequest(tenant=tenant,amount=request.POST.get("amount"),description=request.POST.get("description"),img=request.FILES.get("rimg"))
+        request_pay.save()
+        return render(request,"success2.html",{"Title":"Request successful"})
+    return render(request,"payment_request.html",{})
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])#get request list
+def request_list(request):
+    tenant=Tenant.objects.filter(owner=request.user)
+    payment_request_list=PaymentRequest.objects.filter(tenant__in=tenant)
+    serializer=PayRequestSerializer(payment_request_list,many=True)
+
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def approved(request,id):
+    user=request.user
+    request_pay=PaymentRequest.objects.get(id=id)
+    ten_id=request_pay.tenant.id
+    tenant=Tenant.objects.get(id=ten_id)
+    obj=Payment(tenant=tenant,amount=request_pay.amount)
+    obj.save()
+    statement=""
+    if tenant.balance>=0:
+        statement="You have credit of Rupees "+str(tenant.balance)
+    else:
+        statement="You have to pay "+str(tenant.balance)
+    subject="Payment-"+str(obj.date)
+    message="Hi, \nMr/Mrs "+tenant.name+".Your Payment of "+str(obj.amount)+" is acknowledged by "+user.username+".\n This was acknowledgement of your payment request  \n"+statement+"\n"+"Ignore if not registered"
+    to_list=[tenant.email]
+    email = EmailMessage(
+                        subject,
+                        message,
+                        'gauravshinde696969@gmail.com',
+                        to_list
+                        )
+    # EmailThread(email).start()
+
+    request_pay.delete()
+    data={"success":"success"}
+
+    return Response(data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def denied2(request,id):
+    user=request.user
+    obj=PaymentRequest.objects.get(id=id)
+    tenant=Tenant.objects.get(id=obj.tenant.id)
+    
+    subject="Payment Request Denied"
+    message="Hi, \nMr/Mrs "+tenant.name+".Your Payment Request of "+str(obj.amount)+" is denied by "+user.username+".\n This was acknowledgement of your payment request  \nIgnore if not registered"
+    to_list=[tenant.email]
+    email = EmailMessage(
+                        subject,
+                        message,
+                        'gauravshinde696969@gmail.com',
+                        to_list
+                        )
+    # EmailThread(email).start()
+
+    obj.delete()
+    data={"success":"success"}
+
+    return Response(data)

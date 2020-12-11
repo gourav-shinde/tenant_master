@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from .models import Bill,Payment,Tenant
+from .models import Bill,Payment,Tenant,PaymentRequest
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
@@ -18,3 +18,8 @@ class BillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bill
         fields = ('id','date','start_date','end_date','rent','units','price_per_unit','electric_total','water_bill','wifi_charge','total')
+
+class PayRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=PaymentRequest
+        fields="__all__"

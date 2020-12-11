@@ -5,6 +5,10 @@ from django.db.models.signals import pre_save,post_save,pre_delete
 from django.dispatch import receiver
 # Create your models here.
 
+
+
+
+
 class Tenant(models.Model):
     owner=models.ForeignKey(User,on_delete=models.CASCADE)
     name=models.CharField(max_length=200)
@@ -76,3 +80,9 @@ def balance_bill_delete(sender, instance, *args, **kwargs):
     tenant_instance=Tenant.objects.get(id=instance.tenant.id)
     tenant_instance.balance=tenant_instance.balance+instance.total
     tenant_instance.save()
+
+class PaymentRequest(models.Model):
+    tenant=models.ForeignKey(Tenant,on_delete=models.CASCADE)
+    img=models.ImageField(upload_to="requests")
+    amount=models.IntegerField(default=0)
+    description=models.CharField(max_length=50)
