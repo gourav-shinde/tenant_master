@@ -361,7 +361,7 @@ def approved(request,id):
                         'gauravshinde696969@gmail.com',
                         to_list
                         )
-    # EmailThread(email).start()
+    EmailThread(email).start()
 
     request_pay.delete()
     data={"success":"success"}
@@ -385,7 +385,7 @@ def denied2(request,id):
                         'gauravshinde696969@gmail.com',
                         to_list
                         )
-    # EmailThread(email).start()
+    EmailThread(email).start()
 
     obj.delete()
     data={"success":"success"}
