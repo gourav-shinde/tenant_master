@@ -20,6 +20,7 @@ class BillSerializer(serializers.ModelSerializer):
         fields = ('id','date','start_date','end_date','rent','units','price_per_unit','electric_total','water_bill','wifi_charge','total')
 
 class PayRequestSerializer(serializers.ModelSerializer):
+    tenant_name=serializers.CharField(source="tenant.name",read_only=True)
     class Meta:
         model=PaymentRequest
-        fields="__all__"
+        fields=("id","img","amount","description","tenant","tenant_name")
