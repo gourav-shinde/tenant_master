@@ -1,14 +1,16 @@
-from .serializers import UserSerializer,RegisterationSerializer,EmailSerializer
+from .serializers import UserSerializer,RegisterationSerializer,EmailSerializer,UserUpdate
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAdminUser
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,permission_classes
 from rest_framework.authtoken.models import Token
+
+from rest_framework.permissions import IsAdminUser,IsAuthenticated
 #models
 from django.contrib.auth.models import User
-from .models import Action_slugs
+from .models import Action_slugs,Owner
 
 #forms
 from .forms import Register_Form
@@ -158,3 +160,32 @@ def requestUsername(request):
     else:
         data=serializer.errors
     return Response(data)
+
+
+@api_view(['GET',"PUT"])
+@permission_classes([IsAuthenticated])
+def getPutProfile(request):
+    if request.method=="GET":
+        user=request.user
+        owner=Owner.objects.get(user=user)
+        data={"username":user.username,"email":user.email,"mobile":owner.mobile_no,"link":owner.link}
+        return Response(data=data)
+    if request.method=="PUT":
+        user=request.user
+        owner=Owner.objects.get(user=user)
+        serializer=UserUpdate(data=request.data)
+        data={}
+        if serializer.is_valid():          
+            mobile=serializer.data["mobile_no"]
+            link=serializer.data["link"]
+            owner.link=link
+            owner.mobile_no=mobile
+            owner.save()
+            data["success"]="Successfully updated"
+            return Response(data)
+        else:
+            return Response(status=400)
+
+
+        
+    

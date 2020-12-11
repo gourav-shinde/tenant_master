@@ -67,3 +67,9 @@ class RegisterationSerializer(serializers.ModelSerializer):
 
 class EmailSerializer(serializers.Serializer):
     email=serializers.EmailField()
+
+
+class UserUpdate(serializers.Serializer):
+    mobile_no=serializers.CharField()
+    link=serializers.URLField()
+

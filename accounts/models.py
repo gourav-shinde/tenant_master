@@ -39,6 +39,7 @@ def create_slug(sender, instance, *args, **kwargs):
 class Owner(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     mobile_no=models.CharField(max_length=10,blank=True)
+    link=models.URLField(max_length=500,blank=True)
     owner=models.BooleanField(default=True)
 
 # Create your models here.
