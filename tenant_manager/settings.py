@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_cleanup.apps.CleanupConfig',
+    'storages',
 
     #createdapps
     'accounts',
@@ -131,6 +132,16 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# S3 bucket
+AWS_ACCESS_KEY_ID='AKIARDKFAYRXURN7Z2MY'
+AWS_SECRET_ACCESS_KEY='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'
+AWS_STORAGE_BUCKET_NAME='tenanttempbucket'
+
+AWS_S3_FILE_OVERWRITE=False
+AWS_DEFAULT_ACL=None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_S3_REGION_NAME = 'ap-south-1' 
 
 EMAIL_USE_TLS=True
 EMAIL_HOST="smtp.gmail.com"
