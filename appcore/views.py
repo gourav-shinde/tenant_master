@@ -347,6 +347,7 @@ def approved(request,id):
     tenant=Tenant.objects.get(id=ten_id)
     obj=Payment(tenant=tenant,amount=request_pay.amount)
     obj.save()
+    tenant=Tenant.objects.get(id=ten_id)
     statement=""
     if tenant.balance>=0:
         statement="You have credit of Rupees "+str(tenant.balance)
