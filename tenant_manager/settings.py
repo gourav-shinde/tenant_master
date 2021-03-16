@@ -145,8 +145,8 @@ AWS_S3_REGION_NAME = 'ap-south-1'
 
 EMAIL_USE_TLS=True
 EMAIL_HOST="smtp.gmail.com"
-EMAIL_HOST_USER="gauravshinde696969@gmail.com"
-EMAIL_HOST_PASSWORD="Goku11prime"
+EMAIL_HOST_USER="@gmail.com" #email here
+EMAIL_HOST_PASSWORD="#####" #password here
 EMAIL_PORT=587
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
