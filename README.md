@@ -5,10 +5,11 @@ Android Flutter Application with Django rest API.
 ## Introduction
 
 This Application is designed for House owners/hostels,etc who give rooms for Rents. 
+As of November 28th, 2022, free Heroku Postgres and Heroku Data for Redis® plans are no longer available. Therefore the below link is no longer accessible. Currently new project will be to migrate the databases to google firebase. would upgrade the link when i generate a new domain. this project can still be runned on local machine.
 
 - APP url: https://www.dropbox.com/s/p0g664jh7aveai7/tenant_manager_1.8.apk?dl=0
-- Website link: https://tenant-manager-arsenel.herokuapp.com/
-- Api for software development : https://tenant-manager-arsenel.herokuapp.com/app/api
+- Website link: https://tenant-manager-arsenel.herokuapp.com/(depricated)
+- Api for software development : https://tenant-manager-arsenel.herokuapp.com/app/api(depricated)
 
 ## Note
 
